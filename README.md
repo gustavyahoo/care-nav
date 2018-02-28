@@ -1,5 +1,5 @@
 # Care Nav
-[Demo](https://github.com/gustavyahoo/care-nav)
+[Demo](http://dev.restadviser.com/dev2/prog85/#/)
 
 ## Requirements
 
