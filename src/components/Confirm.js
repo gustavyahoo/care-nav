@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PurpleBackground } from './SplashScreen';
-
-export const Heading = styled.h2`
-  color: #c9c3ba;
-  font-family: sans-serif;
-  text-align: center;
-`;
+import { NextButton, Input, Heading } from './common';
 
 export const ConfirmContainer = styled.form`
   max-width: 300px;
@@ -16,36 +11,12 @@ export const ConfirmContainer = styled.form`
   flex-direction: column;
 `;
 
-export const Confirm = styled.p`
+export const Resend = styled.p`
   text-align: right;
   color: #c9c3ba;
 `;
 
-export const NextButton = styled.button`
-  background-color: #b6874e;
-  color: #fff;
-  border-radius: 10px;
-  padding: 15px 10px;
-  font-size: 0.7em;
-  box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
-  border: 1px solid #61784a;
-  outline: none;
-  margin-top: 50px;
-`;
-
-export const Input = styled.input`
-  text-align: center;
-  margin-bottom: ${props => (props.last ? 0 : '10px')};
-  padding: 15px 10px;
-  border-radius: 10px;
-  color: #61784a;
-  font-size: 0.7em;
-  box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
-  border: 1px solid #61784a;
-  outline: none;
-`;
-
-class Login extends React.Component {
+class Confirm extends React.Component {
   state = {
     confirmCode: ''
   };
@@ -68,7 +39,7 @@ class Login extends React.Component {
             placeholder="CONFIRMATION CODE"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
-          <Confirm>Resend</Confirm>
+          <Resend>Resend</Resend>
           <NextButton>NEXT</NextButton>
         </ConfirmContainer>
       </PurpleBackground>
@@ -76,4 +47,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Confirm;

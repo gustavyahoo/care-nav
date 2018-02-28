@@ -1,12 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import Login, {
-  Heading,
-  LoginContainer,
-  Input,
-  NextButton,
-  Forgot
-} from '../components/Login';
+import Login, { LoginContainer, Forgot } from '../components/Login';
+import { Heading, Input, NextButton } from '../components/common';
 
 const wrapper = mount(<Login />);
 
