@@ -7,8 +7,8 @@
 
 ## Setting Up
 
-1. Clone the project `git clone project_url`
-2. `cd project_folder`
+1. Clone the project `git clone https://github.com/gustavyahoo/care-nav.git`
+2. `cd care-nav`
 3. `yarn`
 4. To run the project `yarn start`
 5. To test the code run `yarn test`
@@ -21,3 +21,4 @@
 1. React
 2. react-fns
 3. styled-components
+4. react-router-dom
