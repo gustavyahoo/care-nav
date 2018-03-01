@@ -1,6 +1,178 @@
+html {
+  /* base font size */
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 4.2rem;
+}
+h2 {
+  font-size: 2rem;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   box-sizing: 'border-box';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div {
+  font-family: 'Nunito', sans-serif;
+}
+
+.purple-bg {
+  background-color: #4b395a;
+  box-sizing: border-box;
+  display: block;
+  overflow: auto;
+}
+
+.splash-container {
+  margin: 0 auto;
+  margin-top: 200px;
+  position: relative;
+  min-width: 300px;
+}
+
+.app-name-containerr {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-name {
+  color: #874b3f;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.html-logo {
+  margin: 0 auto;
+}
+
+.next-btn {
+  background-color: #b6874e;
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px 10px;
+  font-size: 0.7em;
+  box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #61784a;
+  outline: none;
+  margin-top: 50px;
+  font-weight: 600;
+}
+
+.auth-input {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 15px 10px;
+  border-radius: 10px;
+  color: #61784a;
+  font-size: 0.7em;
+  box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #61784a;
+  outline: none;
+}
+
+.auth-heading {
+  color: #c9c3ba;
+  text-align: center;
+}
+
+.forgot-resend-link {
+  text-align: right;
+  color: #c9c3ba;
+  text-decoration: none;
+}
+
+.html-logo {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background-color: transparent;
+  border: 8px solid #e1bd81;
+  border-radius: 14px;
+  transform: rotate(45deg);
+}
+
+.html-logo .inner {
+  width: 85px;
+  height: 85px;
+  background-color: #e1bd81;
+  border: 8px solid #4b395a;
+  border-radius: 14px;
+}
+
+.login-container,
+.confirm-container,
+.care-space-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.care-space-container h2 {
+  font-size: 1.6rem;
+}
+
+.care-space-container {
+  padding-top: 100px;
+}
+
+@media (min-width: 1281px) {
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
 }

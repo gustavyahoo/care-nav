@@ -1,16 +1,20 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import SplashScreen, {
-  AppName,
-  PurpleBackground
-} from '../components/SplashScreen';
+import SplashScreen from '../components/SplashScreen';
+import { PurpleBackground } from '../components/common';
+import { HashRouter as Router } from 'react-router-dom';
+
+const TestComponent = (
+  <Router>
+    <SplashScreen />
+  </Router>
+);
 
 it('renders without crashing', () => {
-  shallow(<SplashScreen />);
-  shallow(<AppName />);
+  shallow(TestComponent);
   shallow(<PurpleBackground />);
 
-  const wrapper = mount(<SplashScreen />);
-  expect(wrapper.find(AppName)).toHaveStyleRule('color', '#874b3f');
-  expect(wrapper.find(AppName)).toHaveText('Care_Nav');
+  const wrapper = mount(TestComponent);
+  expect(wrapper.find('.app-name')).toHaveClassName('app-name');
+  expect(wrapper.find('.app-name')).toHaveText('Care Nav');
 });

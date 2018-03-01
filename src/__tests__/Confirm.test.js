@@ -1,35 +1,40 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import Confirm, { ConfirmContainer, Resend } from '../components/Confirm';
-import { Heading } from '../components/common';
+import Confirm from '../components/Confirm';
+import { MemoryRouter as Router } from 'react-router-dom';
+
+const TestComponent = (
+  <Router>
+    <Confirm />
+  </Router>
+);
+const wrapper = mount(TestComponent);
 
 it('renders without crashing', () => {
-  shallow(<Confirm />);
-  shallow(<ConfirmContainer />);
-  shallow(<Resend />);
+  shallow(TestComponent);
 });
 
 it('has all the required components', () => {
-  const wrapper = mount(<Confirm />);
-  expect(wrapper.find(Heading)).toHaveStyleRule('color', '#c9c3ba');
-  expect(wrapper.find(Heading)).toHaveText('Confirm');
-  expect(wrapper.find(Heading)).toHaveTagName('styled.h2');
-  expect(wrapper).toHaveState('confirmCode', '');
-  expect(wrapper.find('#confirmCode').at(0)).toHaveValue('');
-  expect(wrapper.find(Resend)).toHaveText('Resend');
+  expect(wrapper.find('.auth-heading')).toHaveClassName('auth-heading');
+  expect(wrapper.find('.auth-heading')).toHaveText('Confirm');
+  expect(wrapper.find('.auth-heading')).toHaveTagName('h2');
+  // expect(wrapper).toHaveState('confirmCode', '');
+  expect(wrapper.find('#confirmCode')).toHaveValue('');
+  expect(wrapper.find('.forgot-resend-link').at(0)).toHaveText('Resend');
 });
 
 it('confirm form works', () => {
-  const wrapper = mount(<Confirm />);
   const onChange = jest.fn();
   const eventCode = {
     target: { name: 'confirmCode', value: '12345' }
   };
   const componentEmail = wrapper.find('input').at(0);
   componentEmail.simulate('change', eventCode);
-  expect(wrapper.state().confirmCode).toEqual('12345');
+  expect(wrapper.find(Confirm).instance().state.confirmCode).toEqual('12345');
 
   const submitEvent = { preventDefault: jest.fn(), data: {} };
   const form = wrapper.find('form').at(0);
   form.simulate('submit', submitEvent);
+
+  expect(submitEvent.preventDefault).toBeCalled();
 });

@@ -1,20 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { PurpleBackground } from './SplashScreen';
-import { NextButton, Input, Heading } from './common';
-
-export const LoginContainer = styled.form`
-  max-width: 300px;
-  margin: 0 auto;
-  padding-top: 150px;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Forgot = styled.p`
-  text-align: right;
-  color: #c9c3ba;
-`;
+import { PurpleBackground } from './common';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   state = {
@@ -29,10 +15,11 @@ class Login extends React.Component {
   };
   render() {
     return (
-      <PurpleBackground>
-        <LoginContainer onSubmit={this._submit}>
-          <Heading>Log in/Registration</Heading>
-          <Input
+      <PurpleBackground className="purple-bg">
+        <form onSubmit={this._submit} className="login-container">
+          <h2 className="auth-heading">Log in/Registration</h2>
+          <input
+            className="auth-input"
             type="text"
             value={this.state.emailOrPhone}
             id="emailOrPhone"
@@ -40,8 +27,8 @@ class Login extends React.Component {
             placeholder="EMAIL/ PHONE NUMBER"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
-          <Input
-            last
+          <input
+            className="auth-input"
             type="password"
             value={this.state.password}
             id="password"
@@ -49,9 +36,11 @@ class Login extends React.Component {
             placeholder="PASSWORD"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
-          <Forgot>Forgot...</Forgot>
-          <NextButton>NEXT</NextButton>
-        </LoginContainer>
+          <Link to="/forgot" className="forgot-resend-link">
+            Forgot...
+          </Link>
+          <button className="next-btn">NEXT</button>
+        </form>
       </PurpleBackground>
     );
   }
