@@ -1,58 +1,58 @@
 import React from 'react';
 import { PurpleBackground } from './common';
 
-class CareSpace extends React.Component {
+class CareAdmin extends React.Component {
   state = {
     name: '',
-    type: '',
-    address: '',
-    phFax: ''
+    avatar: '',
+    social: '',
+    emailOrPhone: ''
   };
 
   _submit = e => {
     e.preventDefault();
-    const { name, type, address, phFax } = this.state;
-    console.log({ name, type, address, phFax });
+    const { name, avatar, social, emailOrPhone } = this.state;
+    console.log({ name, avatar, social, emailOrPhone });
   };
   render() {
     return (
       <PurpleBackground className="purple-bg">
         <form className="care-space-container" onSubmit={this._submit}>
-          <h1 className="auth-heading">Create a Care_Space</h1>
+          <h2 className="care-admin auth-heading">Create Care_Admin profile</h2>
           <input
             className="auth-input"
             type="text"
             value={this.state.name}
             id="name"
             name="name"
-            placeholder="NAME"
+            placeholder="NAME/NICK NAME"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
           <input
             className="auth-input"
             type="text"
-            value={this.state.type}
-            id="type"
-            name="type"
-            placeholder="TYPE"
+            value={this.state.avatar}
+            id="avatar"
+            name="avatar"
+            placeholder="AVATAR"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
           <input
             className="auth-input"
             type="text"
-            value={this.state.address}
-            id="address"
-            name="address"
-            placeholder="ADDRESS"
+            value={this.state.social}
+            id="social"
+            name="social"
+            placeholder="SOCIAL"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
           <input
             className="auth-input"
             type="text"
-            value={this.state.phFax}
-            id="phFax"
-            name="phFax"
-            placeholder="PH/FAX NUMBERS"
+            value={this.state.emailOrPhone}
+            id="emailOrPhone"
+            name="emailOrPhone"
+            placeholder="EMAIL/PHONE NUMBER"
             onChange={e => this.setState({ [e.target.name]: e.target.value })}
           />
           <button className="next-btn">NEXT</button>
@@ -62,4 +62,4 @@ class CareSpace extends React.Component {
   }
 }
 
-export default CareSpace;
+export default CareAdmin;

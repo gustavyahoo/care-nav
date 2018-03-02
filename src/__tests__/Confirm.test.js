@@ -17,7 +17,7 @@ it('renders without crashing', () => {
 it('has all the required components', () => {
   expect(wrapper.find('.auth-heading')).toHaveClassName('auth-heading');
   expect(wrapper.find('.auth-heading')).toHaveText('Confirm');
-  expect(wrapper.find('.auth-heading')).toHaveTagName('h2');
+  expect(wrapper.find('.auth-heading')).toHaveTagName('h1');
   // expect(wrapper).toHaveState('confirmCode', '');
   expect(wrapper.find('#confirmCode')).toHaveValue('');
   expect(wrapper.find('.forgot-resend-link').at(0)).toHaveText('Resend');
@@ -33,7 +33,7 @@ it('confirm form works', () => {
   expect(wrapper.find(Confirm).instance().state.confirmCode).toEqual('12345');
 
   const submitEvent = { preventDefault: jest.fn(), data: {} };
-  const form = wrapper.find('form').at(0);
+  const form = wrapper.find('.confirm-container').at(0);
   form.simulate('submit', submitEvent);
 
   expect(submitEvent.preventDefault).toBeCalled();

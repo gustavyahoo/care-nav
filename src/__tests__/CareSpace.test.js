@@ -17,7 +17,7 @@ it('renders without crashing', () => {
 it('has all the required components', () => {
   expect(wrapper.find('.auth-heading')).toHaveClassName('auth-heading');
   expect(wrapper.find('.auth-heading')).toHaveText('Create a Care_Space');
-  expect(wrapper.find('.auth-heading')).toHaveTagName('h2');
+  expect(wrapper.find('.auth-heading')).toHaveTagName('h1');
   expect(wrapper.find('#phFax')).toHaveValue('');
   expect(wrapper.find(CareSpace).instance().state).toEqual({
     name: '',

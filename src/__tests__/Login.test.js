@@ -18,7 +18,7 @@ const wrapper = mount(TestComponent);
 it('has all the required components', () => {
   expect(wrapper.find('.auth-heading')).toHaveClassName('auth-heading');
   expect(wrapper.find('.auth-heading')).toHaveText('Log in/Registration');
-  expect(wrapper.find('.auth-heading')).toHaveTagName('h2');
+  expect(wrapper.find('.auth-heading')).toHaveTagName('h1');
   expect(wrapper.find(Login).instance().state).toEqual({
     emailOrPhone: '',
     password: ''

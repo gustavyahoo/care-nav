@@ -17,7 +17,7 @@ class Login extends React.Component {
     return (
       <PurpleBackground className="purple-bg">
         <form onSubmit={this._submit} className="login-container">
-          <h2 className="auth-heading">Log in/Registration</h2>
+          <h1 className="auth-heading">Log in/Registration</h1>
           <input
             className="auth-input"
             type="text"

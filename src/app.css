@@ -1,14 +1,13 @@
-html {
-  /* base font size */
+/* html {
   font-size: 16px;
-}
+} */
 
-h1 {
+/* h1 {
   font-size: 4.2rem;
 }
 h2 {
   font-size: 2rem;
-}
+} */
 
 html,
 body {
@@ -17,7 +16,7 @@ body {
   box-sizing: 'border-box';
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -26,7 +25,7 @@ h6,
 p,
 div {
   font-family: 'Nunito', sans-serif;
-}
+} */
 
 .purple-bg {
   background-color: #4b395a;
@@ -56,6 +55,8 @@ div {
   color: #874b3f;
   text-transform: uppercase;
   font-weight: 600;
+  font-size: 5em;
+  margin-bottom: 0;
 }
 
 .html-logo {
@@ -67,7 +68,7 @@ div {
   color: #fff;
   border-radius: 10px;
   padding: 15px 10px;
-  font-size: 0.7em;
+  font-size: 0.8em;
   box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
   border: 1px solid #61784a;
   outline: none;
@@ -81,7 +82,7 @@ div {
   padding: 15px 10px;
   border-radius: 10px;
   color: #61784a;
-  font-size: 0.7em;
+  font-size: 0.8em;
   box-shadow: -1px 6px 0px -4px rgba(0, 0, 0, 0.25);
   border: 1px solid #61784a;
   outline: none;
@@ -132,6 +133,42 @@ div {
 
 .care-space-container {
   padding-top: 100px;
+}
+
+.care-space-container .care-admin {
+  font-size: 1.4rem;
+}
+
+.top-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 2px solid #708ca5;
+}
+
+.nav-header {
+  margin-bottom: 0;
+  color: #5b5854;
+  font-weight: 700;
+}
+
+.top-nav-list {
+  margin-bottom: 0;
+}
+
+.top-nav-list li a {
+  color: #5b5854;
+  font-size: 1.3em;
+}
+
+.top-nav-list li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.top-nav-seperator {
 }
 
 @media (min-width: 1281px) {

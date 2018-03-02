@@ -16,7 +16,7 @@ class Confirm extends React.Component {
     return (
       <PurpleBackground className="purple-bg">
         <form className="confirm-container" onSubmit={this._submit}>
-          <h2 className="auth-heading">Confirm</h2>
+          <h1 className="auth-heading">Confirm</h1>
           <input
             className="auth-input"
             type="text"
