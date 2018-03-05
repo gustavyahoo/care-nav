@@ -1,46 +1,81 @@
 import React from 'react';
 import { PurpleBackground } from './common';
 import { Link } from 'react-router-dom';
+import { Form, Field, Formik } from 'formik';
 
 class Login extends React.Component {
-  state = {
-    emailOrPhone: '',
-    password: ''
-  };
-
-  _submit = e => {
-    e.preventDefault();
-    const { emailOrPhone, password } = this.state;
-    console.log(emailOrPhone, password);
-  };
   render() {
     return (
       <PurpleBackground className="purple-bg">
-        <form onSubmit={this._submit} className="login-container">
-          <h1 className="auth-heading">Log in/Registration</h1>
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.emailOrPhone}
-            id="emailOrPhone"
-            name="emailOrPhone"
-            placeholder="EMAIL/ PHONE NUMBER"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <input
-            className="auth-input"
-            type="password"
-            value={this.state.password}
-            id="password"
-            name="password"
-            placeholder="PASSWORD"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <Link to="/forgot" className="forgot-resend-link">
-            Forgot...
-          </Link>
-          <button className="next-btn">NEXT</button>
-        </form>
+        <Formik
+          initialValues={{
+            emailOrPhone: '',
+            password: ''
+          }}
+          validate={values => {
+            let errors = {};
+            if (!values.emailOrPhone) {
+              errors.emailOrPhone = 'Email or phone is required';
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
+                values.emailOrPhone
+              )
+            ) {
+              if (
+                isNaN(values.emailOrPhone) ||
+                String(values.emailOrPhone).length !== 10
+              ) {
+                errors.emailOrPhone = 'Invalid email address or phone number';
+              }
+            }
+            if (!values.password) {
+              errors.password = 'Password is required';
+            }
+
+            return errors;
+          }}
+          onSubmit={(values, actions) => {
+            console.log(values);
+            this.props.history.push('/confirm');
+            // should lead user to confirmation screen
+
+            // CallMyApi(user.id, values).then(
+            //   updatedUser => {
+            //     actions.setSubmitting(false);
+            //     updateUser(updatedUser), onClose();
+            //   },
+            //   error => {
+            //     actions.setSubmitting(false);
+            //     actions.setErrors(transformMyAPIErrorToAnObject(error));
+            //   }
+            // );
+          }}
+          render={({ errors, touched, isSubmitting }) => (
+            <Form className="login-container">
+              <h1 className="auth-heading">Log in/Registration</h1>
+              <Field type="text" name="emailOrPhone" className="auth-input" />
+              {errors.emailOrPhone &&
+                touched.emailOrPhone && (
+                  <div className="error-field">{errors.emailOrPhone}</div>
+                )}
+              <Field type="password" name="password" className="auth-input" />
+              {errors.password &&
+                touched.password && (
+                  <div className="error-field">{errors.password}</div>
+                )}
+              <Link to="/forgot-password" className="forgot-resend-link">
+                Forgot...
+              </Link>
+              <button
+                className="next-btn"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                NEXT
+              </button>
+            </Form>
+          )}
+        />
       </PurpleBackground>
     );
   }

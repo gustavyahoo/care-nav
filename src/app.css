@@ -169,6 +169,128 @@ div {
 }
 
 .top-nav-seperator {
+  font-weight: 700;
+}
+
+.care-table-header {
+  font-weight: 700;
+}
+
+.care-table-container {
+  background-color: #e6e6e6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.care-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.care-button-container button {
+  background-color: transparent;
+  border: none;
+}
+
+.care-table-titles,
+.care-table-topics-titles {
+  display: flex;
+  border-bottom: 1px solid #000;
+  height: 40px;
+}
+
+.care-table-titles div,
+.care-table-topics-titles div {
+  border-right: 2px dashed #5b5854;
+  width: 20%;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.care-table-topics-titles div {
+  width: 18%;
+}
+
+.care-table-topics-titles div:nth-child(1) {
+  width: 28%;
+}
+
+.care-table-row {
+  display: flex;
+  height: 40px;
+}
+
+.care-table-row:nth-child(odd),
+.care-table-topics-row:nth-child(odd) {
+  border-bottom: 1px solid #6d6a66;
+}
+
+.care-table-row:nth-child(even),
+.care-table-topics-row:nth-child(even) {
+  border-bottom: 1px solid #000;
+}
+
+.care-table-rows > div:nth-child(odd),
+.care-table-topics-rows > div:nth-child(even) {
+  background-color: #dce1e0;
+}
+
+.care-table-rows > div:nth-child(even),
+.care-table-topics-rows > div:nth-child(even) {
+  background-color: #e6e6e6;
+}
+
+.care-table-topics-row {
+  display: flex;
+  height: 40px;
+}
+
+.care-table-row > div {
+  border-right: 2px dashed #5b5854;
+  width: 20%;
+}
+
+.care-table-topics-row > div {
+  border-right: 2px dashed #5b5854;
+  width: 18%;
+}
+
+.care-table-topics-row > div:nth-child(1) {
+  width: 28%;
+}
+
+.add-btn {
+  padding-right: 10px;
+}
+
+.care-all-container {
+  background-color: #e6e6e6;
+}
+
+.full-row {
+  display: flex;
+}
+
+.half-box {
+  width: 50%;
+  display: inline-block;
+}
+
+.error-field {
+  color: #e83e8c;
+  margin-bottom: 30px;
+}
+
+.ant-select-selection--single {
+  border-radius: 10px !important;
+  height: 42px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
 
 @media (min-width: 1281px) {

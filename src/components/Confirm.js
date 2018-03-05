@@ -1,36 +1,53 @@
 import React from 'react';
 import { PurpleBackground } from './common';
 import { Link } from 'react-router-dom';
+import { Form, Field, Formik } from 'formik';
 
 class Confirm extends React.Component {
-  state = {
-    confirmCode: ''
-  };
-
-  _submit = e => {
-    e.preventDefault();
-    const { confirmCode } = this.state;
-    console.log(confirmCode);
-  };
   render() {
     return (
       <PurpleBackground className="purple-bg">
-        <form className="confirm-container" onSubmit={this._submit}>
-          <h1 className="auth-heading">Confirm</h1>
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.confirmCode}
-            id="confirmCode"
-            name="confirmCode"
-            placeholder="CONFIRMATION CODE"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <Link to="/resend" className="forgot-resend-link">
-            Resend
-          </Link>
-          <button className="next-btn">NEXT</button>
-        </form>
+        <Formik
+          initialValues={{
+            confirmCode: ''
+          }}
+          validate={values => {
+            let errors = {};
+            if (!values.confirmCode) {
+              errors.confirmCode = 'confirm code is required';
+            } else if (
+              isNaN(values.confirmCode) ||
+              String(values.confirmCode).length !== 6
+            ) {
+              errors.confirmCode = 'confirm code must be 6 digits only';
+            }
+
+            return errors;
+          }}
+          onSubmit={(values, actions) => {
+            console.log(values);
+          }}
+          render={({ errors, touched, isSubmitting }) => (
+            <Form className="confirm-container">
+              <h1 className="auth-heading">Confirm</h1>
+              <Field type="text" name="confirmCode" className="auth-input" />
+              {errors.confirmCode &&
+                touched.confirmCode && (
+                  <div className="error-field">{errors.confirmCode}</div>
+                )}
+              <Link to="/resend" className="forgot-resend-link">
+                Resend
+              </Link>
+              <button
+                className="next-btn"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                NEXT
+              </button>
+            </Form>
+          )}
+        />
       </PurpleBackground>
     );
   }

@@ -1,62 +1,117 @@
 import React from 'react';
 import { PurpleBackground } from './common';
+import { Form, Field, Formik } from 'formik';
+import { Select } from 'antd';
+const Option = Select.Option;
 
 class CareSpace extends React.Component {
-  state = {
-    name: '',
-    type: '',
-    address: '',
-    phFax: ''
-  };
-
-  _submit = e => {
-    e.preventDefault();
-    const { name, type, address, phFax } = this.state;
-    console.log({ name, type, address, phFax });
-  };
   render() {
     return (
       <PurpleBackground className="purple-bg">
-        <form className="care-space-container" onSubmit={this._submit}>
-          <h1 className="auth-heading">Create a Care_Space</h1>
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.name}
-            id="name"
-            name="name"
-            placeholder="NAME"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.type}
-            id="type"
-            name="type"
-            placeholder="TYPE"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.address}
-            id="address"
-            name="address"
-            placeholder="ADDRESS"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <input
-            className="auth-input"
-            type="text"
-            value={this.state.phFax}
-            id="phFax"
-            name="phFax"
-            placeholder="PH/FAX NUMBERS"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-          />
-          <button className="next-btn">NEXT</button>
-        </form>
+        <Formik
+          initialValues={{
+            name: '',
+            type: 'physician',
+            address: '',
+            phFax: ''
+          }}
+          validate={values => {
+            let errors = {};
+            if (!values.name) {
+              errors.name = 'Name is required';
+            } else if (values.name.length > 100) {
+              errors.name = 'Name must be less than 100 characters in length';
+            }
+
+            if (!values.type) {
+              errors.type = 'Type is required';
+            }
+
+            if (!values.address) {
+              errors.address = 'Address is required';
+            } else if (values.address.length > 100) {
+              errors.address =
+                'Address must be less than 500 characters in length';
+            }
+
+            if (!values.phFax) {
+              errors.phFax = 'Phone number is required';
+            } else if (
+              isNaN(values.phFax) ||
+              String(values.phFax).length !== 10
+            ) {
+              errors.phFax = 'Invalid phone or fax number';
+            }
+
+            return errors;
+          }}
+          onSubmit={(values, actions) => {
+            console.log(values);
+          }}
+          render={({
+            errors,
+            touched,
+            isSubmitting,
+            setFieldValue,
+            values
+          }) => (
+            <Form className="care-space-container">
+              <h1 className="auth-heading">Create a Care_Space</h1>
+              <Field
+                type="text"
+                name="name"
+                className="auth-input"
+                placeholder="NAME"
+              />
+              {errors.name &&
+                touched.name && (
+                  <div className="error-field">{errors.name}</div>
+                )}
+              <Select
+                name="type"
+                value={values.type}
+                style={{
+                  marginBottom: 20
+                }}
+                onChange={value => setFieldValue('type', value)}
+              >
+                <Option value="physician">Physician</Option>
+                <Option value="surgery">Surgery</Option>
+              </Select>
+              {errors.type &&
+                touched.type && (
+                  <div className="error-field">{errors.type}</div>
+                )}
+              <Field
+                type="text"
+                name="address"
+                className="auth-input"
+                placeholder="ADDRESS"
+              />
+              {errors.address &&
+                touched.address && (
+                  <div className="error-field">{errors.address}</div>
+                )}
+              <Field
+                type="text"
+                name="phFax"
+                className="auth-input"
+                placeholder="PH/FAX NUMBERS"
+              />
+              {errors.phFax &&
+                touched.phFax && (
+                  <div className="error-field">{errors.phFax}</div>
+                )}
+              <button
+                className="next-btn"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                NEXT
+              </button>
+            </Form>
+          )}
+        />
       </PurpleBackground>
     );
   }

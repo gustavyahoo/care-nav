@@ -6,6 +6,10 @@ import CareSpace from './components/CareSpace';
 import CareAdmin from './components/CareAdmin';
 import TopNav from './components/TopNav';
 import CareInvite from './components/CareInvite';
+import CareMembers from './components/CareMembers';
+import CareTeams from './components/CareTeams';
+import CareTopics from './components/CareTopics';
+import CareAll from './components/CareAll';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import './app.css';
 
@@ -32,6 +36,18 @@ export const Nav = props => (
     <li>
       <Link to="/top-nav">Top Navigation</Link>
     </li>
+    <li>
+      <Link to="/care-members">Care members</Link>
+    </li>
+    <li>
+      <Link to="/care-teams">Care Teams</Link>
+    </li>
+    <li>
+      <Link to="/care-topics">Care Topics</Link>
+    </li>
+    <li>
+      <Link to="/care-all">Care All</Link>
+    </li>
   </ul>
 );
 
@@ -48,6 +64,10 @@ class App extends Component {
           <Route path="/care-admin" component={CareAdmin} />
           <Route path="/care-invite" component={CareInvite} />
           <Route path="/top-nav" component={TopNav} />
+          <Route path="/care-members" component={CareMembers} />
+          <Route path="/care-teams" component={CareTeams} />
+          <Route path="/care-topics" component={CareTopics} />
+          <Route path="/care-all" component={CareAll} />
         </div>
       </Router>
     );
