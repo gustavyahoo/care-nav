@@ -1,12 +1,12 @@
 import React from 'react';
-import { PurpleBackground } from './common';
+import { FullSizeBackground } from './common';
 import { Link } from 'react-router-dom';
 import { Form, Field, Formik } from 'formik';
 
 class Confirm extends React.Component {
   render() {
     return (
-      <PurpleBackground className="purple-bg">
+      <FullSizeBackground backgroundColor="#4b395a">
         <Formik
           initialValues={{
             confirmCode: ''
@@ -48,7 +48,7 @@ class Confirm extends React.Component {
             </Form>
           )}
         />
-      </PurpleBackground>
+      </FullSizeBackground>
     );
   }
 }

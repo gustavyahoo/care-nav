@@ -1,5 +1,5 @@
 import React from 'react';
-import { PurpleBackground } from './common';
+import { FullSizeBackground } from './common';
 import { Link } from 'react-router-dom';
 
 class CareInvite extends React.Component {
@@ -17,7 +17,7 @@ class CareInvite extends React.Component {
   };
   render() {
     return (
-      <PurpleBackground className="purple-bg">
+      <FullSizeBackground backgroundColor="#4b395a">
         <form
           className="care-space-container"
           id="care-invite-form"
@@ -65,7 +65,7 @@ class CareInvite extends React.Component {
           </Link>
           <button className="next-btn">NEXT</button>
         </form>
-      </PurpleBackground>
+      </FullSizeBackground>
     );
   }
 }

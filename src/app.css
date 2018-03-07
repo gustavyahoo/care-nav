@@ -93,6 +93,10 @@ div {
   text-align: center;
 }
 
+.forgot-resend-link-ctn {
+  text-align: right;
+}
+
 .forgot-resend-link {
   text-align: right;
   color: #c9c3ba;
@@ -291,6 +295,67 @@ div {
   height: 42px !important;
   padding-top: 5px !important;
   padding-bottom: 5px !important;
+}
+
+.ant-layout-sider {
+  background: #fff !important;
+}
+
+.left-sidebar,
+.ant-layout-sider {
+  background: #fff;
+}
+
+.left-sidebar .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-sidebar,
+.ant-layout-sider {
+  background: #fff;
+}
+
+.main-content {
+  padding: 24px;
+  background: #fff;
+}
+
+.header-medical-practice {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 40px;
+  color: #6c6c6c;
+}
+
+.member-profile h3 {
+  margin-bottom: 0;
+  color: #6c6c6c;
+  font-weight: 700;
+}
+
+.member-profile a {
+  font-size: 0.8rem;
+  color: #6c6c6c;
+  font-weight: 700;
+}
+
+.left-menu-items {
+  margin-top: 40px;
+  padding-left: 0;
+}
+
+.left-menu-items li {
+  list-style: none;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.left-menu-items li a {
+  color: #6c6c6c;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 @media (min-width: 1281px) {

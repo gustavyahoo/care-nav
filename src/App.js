@@ -12,6 +12,7 @@ import CareTopics from './components/CareTopics';
 import CareAll from './components/CareAll';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import './app.css';
+import CoreLayout from './components/CoreLayout';
 
 export const Nav = props => (
   <ul>
@@ -48,6 +49,9 @@ export const Nav = props => (
     <li>
       <Link to="/care-all">Care All</Link>
     </li>
+    <li>
+      <Link to="/three-column-layout">Three column layout</Link>
+    </li>
   </ul>
 );
 
@@ -68,6 +72,7 @@ class App extends Component {
           <Route path="/care-teams" component={CareTeams} />
           <Route path="/care-topics" component={CareTopics} />
           <Route path="/care-all" component={CareAll} />
+          <Route path="/three-column-layout" component={CoreLayout} />
         </div>
       </Router>
     );

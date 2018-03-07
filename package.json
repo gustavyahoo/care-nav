@@ -8,9 +8,16 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-fns": "^1.4.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "yup": "^0.24.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.3.14",
+    "@storybook/addon-jest": "^3.3.14",
+    "@storybook/addon-links": "^3.3.14",
+    "@storybook/addons": "^3.3.14",
+    "@storybook/react": "^3.3.14",
+    "babel-core": "^6.26.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest-enzyme": "^4.2.0",
@@ -32,7 +39,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build-storybook": "build-storybook -s public",
+    "test":
+      "react-scripts test --env=jsdom --json --outputFile=src/.jest-test-results.json || true",
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "eject": "react-scripts eject",
+    "prebuild:storybook": "npm run test",
+    "storybook": "start-storybook -p 9009 -s public"
   }
 }

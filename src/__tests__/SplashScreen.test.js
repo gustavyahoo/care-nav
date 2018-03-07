@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import SplashScreen from '../components/SplashScreen';
-import { PurpleBackground } from '../components/common';
 import { HashRouter as Router } from 'react-router-dom';
 
 const TestComponent = (
@@ -10,11 +9,13 @@ const TestComponent = (
   </Router>
 );
 
-it('renders without crashing', () => {
-  shallow(TestComponent);
-  shallow(<PurpleBackground />);
+const wrapper = mount(TestComponent);
 
-  const wrapper = mount(TestComponent);
-  expect(wrapper.find('.app-name')).toHaveClassName('app-name');
-  expect(wrapper.find('.app-name')).toHaveText('Care Nav');
+describe('<SplashScreen />', () => {
+  it('renders without crashing', () => {
+    shallow(TestComponent);
+  });
+  it('has correct title', () => {
+    expect(wrapper.find('.app-name')).toHaveText('Care Nav');
+  });
 });

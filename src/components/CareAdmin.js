@@ -1,5 +1,5 @@
 import React from 'react';
-import { PurpleBackground } from './common';
+import { FullSizeBackground } from './common';
 
 class CareAdmin extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class CareAdmin extends React.Component {
   };
   render() {
     return (
-      <PurpleBackground className="purple-bg">
+      <FullSizeBackground backgroundColor="#4b395a">
         <form className="care-space-container" onSubmit={this._submit}>
           <h2 className="care-admin auth-heading">Create Care_Admin profile</h2>
           <input
@@ -57,7 +57,7 @@ class CareAdmin extends React.Component {
           />
           <button className="next-btn">NEXT</button>
         </form>
-      </PurpleBackground>
+      </FullSizeBackground>
     );
   }
 }
