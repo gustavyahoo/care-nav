@@ -3,3 +3,7 @@
 [] add material-icons-support
 [] integrate jest test suite
 [] Build one page
+
+
+Questions ---
+What should be the on hover color for the links? Currently it defaults to blue

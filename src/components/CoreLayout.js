@@ -1,7 +1,9 @@
 import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Icon } from 'antd';
 import { withWindowSize } from 'react-fns';
-import { Link } from 'react-router-dom';
+import MobileLeftNav from './MobileLeftNav';
+import MobileRightNav from './MobileRightNav';
+import InboxAndPatientTabs from './InboxAndPatientTabs';
 const { Header, Sider, Content } = Layout;
 
 const breakpoints = {
@@ -19,19 +21,33 @@ class CoreLayout extends React.Component {
     rightCollapsed: true
   };
   toggleLeft = () => {
-    this.setState({
-      leftCollapsed: !this.state.leftCollapsed
-    });
+    this.setState(
+      {
+        leftCollapsed: !this.state.leftCollapsed
+      },
+      () => {
+        if (this.state.leftCollapsed) {
+          this.forceUpdate();
+        }
+      }
+    );
   };
   toggleRight = () => {
-    this.setState({
-      rightCollapsed: !this.state.rightCollapsed
-    });
+    this.setState(
+      {
+        rightCollapsed: !this.state.rightCollapsed
+      },
+      () => {
+        if (this.state.rightCollapsed) {
+          this.forceUpdate();
+        }
+      }
+    );
   };
   componentWillReceiveProps(newProps) {
     this.setState({
-      leftCollapsed: newProps.width < breakpoints.sm,
-      rightCollapsed: newProps.width < breakpoints.sm
+      leftCollapsed: newProps.width < breakpoints.md,
+      rightCollapsed: newProps.width < breakpoints.md
     });
   }
   render() {
@@ -45,22 +61,7 @@ class CoreLayout extends React.Component {
           className="left-sidebar"
           style={{ height: this.props.height }}
         >
-          <h1 className="header-medical-practice">Medical Practice</h1>
-          <div className="member-profile">
-            <h3>Member</h3>
-            <Link to="/edit-profile">Edit Profile</Link>
-          </div>
-          <ul className="left-menu-items">
-            <li>
-              <Link to="my-care-team">My care team</Link>
-            </li>
-            <li>
-              <Link to="my-care-library">My care library</Link>
-            </li>
-            <li>
-              <Link to="settings">Settings</Link>
-            </li>
-          </ul>
+          <MobileLeftNav />
         </Sider>
         <Layout>
           <Header
@@ -86,7 +87,9 @@ class CoreLayout extends React.Component {
               onClick={this.toggleRight}
             />
           </Header>
-          <Content className="main-content">Main Content</Content>
+          <Content className="main-content">
+            <InboxAndPatientTabs />
+          </Content>
         </Layout>
         <Sider
           collapsedWidth="0"
@@ -95,7 +98,7 @@ class CoreLayout extends React.Component {
           collapsed={this.state.rightCollapsed}
           className="right-sidebar"
         >
-          right sidebar
+          <MobileRightNav />
         </Sider>
       </Layout>
     );

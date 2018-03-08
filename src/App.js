@@ -10,6 +10,8 @@ import CareMembers from './components/CareMembers';
 import CareTeams from './components/CareTeams';
 import CareTopics from './components/CareTopics';
 import CareAll from './components/CareAll';
+import NewMessage from './components/NewMessage';
+import NewPatientForm from './components/NewPatientForm';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import './app.css';
 import CoreLayout from './components/CoreLayout';
@@ -73,6 +75,8 @@ class App extends Component {
           <Route path="/care-topics" component={CareTopics} />
           <Route path="/care-all" component={CareAll} />
           <Route path="/three-column-layout" component={CoreLayout} />
+          <Route path="/inbox/new-message" component={NewMessage} />
+          <Route path="/inbox/new-patient-form" component={NewPatientForm} />
         </div>
       </Router>
     );
