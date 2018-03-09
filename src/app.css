@@ -512,6 +512,78 @@ div {
   font-size: 1.4rem;
 }
 
+.Tabs-container-headers {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  height: 40px;
+  margin: 10px 0;
+}
+
+.Tabs-container-headers div {
+  flex: 1;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.Tabs-active-tab {
+  background-color: #6c6c6c;
+}
+
+.PatientName-content-first-row {
+  display: flex;
+  margin-top: 10px;
+}
+
+.PatientName-content-first-row .PatientName-avatar {
+  flex: 1;
+}
+
+.PatientName-content-first-row .PatientName-avatar img {
+  width: 100%;
+  height: auto;
+}
+
+.PatientName-personal-info-age-sex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.PatientName-content-first-row .PatientName-personal-info {
+  padding-left: 10px;
+  flex: 2;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.PatientName-content-first-row .PatientName-personal-info span {
+  font-weight: 700;
+}
+
+.PatientName-content-second-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.PatientName-content-second-row span {
+  font-weight: 700;
+}
+
+.PatientName-content-third-row {
+  font-weight: 700;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.PatientName-content-fourth-row {
+  font-weight: 700;
+  margin-top: 25px;
+}
+
 @media (min-width: 1281px) {
 }
 

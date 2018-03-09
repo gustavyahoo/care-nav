@@ -12,6 +12,10 @@ import CareTopics from './components/CareTopics';
 import CareAll from './components/CareAll';
 import NewMessage from './components/NewMessage';
 import NewPatientForm from './components/NewPatientForm';
+import InboxSecondarySender from './components/InboxSecondarySender';
+import InboxPatientMessage from './components/InboxPatientMessage';
+import PatientName from './components/PatientName';
+import EditPatientForm from './components/EditPatientForm';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import './app.css';
 import CoreLayout from './components/CoreLayout';
@@ -54,6 +58,18 @@ export const Nav = props => (
     <li>
       <Link to="/three-column-layout">Three column layout</Link>
     </li>
+    <li>
+      <Link to="/inbox-secondary-sender">Inbox Sender Screen</Link>
+    </li>
+    <li>
+      <Link to="/inbox-patient-message">Inbox Patient Message</Link>
+    </li>
+    <li>
+      <Link to="/patient-name">Patient Name</Link>
+    </li>
+    <li>
+      <Link to="/edit-patient-form">Edit patient form</Link>
+    </li>
   </ul>
 );
 
@@ -77,6 +93,16 @@ class App extends Component {
           <Route path="/three-column-layout" component={CoreLayout} />
           <Route path="/inbox/new-message" component={NewMessage} />
           <Route path="/inbox/new-patient-form" component={NewPatientForm} />
+          <Route
+            path="/inbox-secondary-sender"
+            component={InboxSecondarySender}
+          />
+          <Route
+            path="/inbox-patient-message"
+            component={InboxPatientMessage}
+          />
+          <Route path="/patient-name" component={PatientName} />
+          <Route path="/edit-patient-form" component={EditPatientForm} />
         </div>
       </Router>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Select, Icon } from 'antd';
+import { Tabs, Icon } from 'antd';
 import { withWindowSize } from 'react-fns';
 import { Link } from 'react-router-dom';
 const TabPane = Tabs.TabPane;
