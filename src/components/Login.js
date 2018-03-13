@@ -26,7 +26,7 @@ Yup.addMethod(Yup.string, 'emailOrPhone', function(regex, message) {
 });
 
 // cognito user login
-const loginUser = ({ emailOrPhone, password }) => {
+const loginUser = (emailOrPhone, password) => {
   const authenticationDetails = new AuthenticationDetails({
     Username: emailOrPhone,
     Password: password
@@ -112,9 +112,10 @@ const formikEnhancer = withFormik({
   ) => {
     setSubmitting(false);
     try {
-      const user = await loginUser(payload);
+      const user = await loginUser(payload.emailOrPhone, payload.password);
       props.loginSuccess(user);
     } catch (err) {
+      console.log(err);
       if (err.code === 'UserNotFoundException') {
         await SignupUser(payload);
         props.confirmUser(payload.emailOrPhone, payload.password);
@@ -159,7 +160,7 @@ export const InnerForm = ({
     {errors.password &&
       touched.password && <div className="error-field">{errors.password}</div>}
     <div className="forgot-resend-link-ctn">
-      <button
+      <a
         className="forgot-resend-link"
         onClick={e => {
           e.preventDefault();
@@ -167,7 +168,7 @@ export const InnerForm = ({
         }}
       >
         Forgot...
-      </button>
+      </a>
     </div>
     <button className="next-btn" type="submit" disabled={isSubmitting}>
       NEXT
@@ -196,22 +197,17 @@ class Login extends React.Component {
   };
   _confirmSuccess = async () => {
     const { emailOrPhone, password } = this.state;
-    const user = await loginUser({ emailOrPhone, password });
+    const user = await loginUser(emailOrPhone, password);
     if (user) {
       this.props.history.push('/');
     }
   };
   _confirmSuccessOnPasswordChange = async newPassword => {
     const { emailOrPhone } = this.state;
-    this.setState({
-      formVisible: 'LOGIN',
-      emailOrPhone: '',
-      password: ''
-    });
-    // const user = await loginUser({ emailOrPhone, newPassword });
-    // if (user) {
-    //   this.props.history.push('/');
-    // }
+    const user = await loginUser(emailOrPhone, newPassword);
+    if (user) {
+      this.props.history.push('/');
+    }
   };
   _forgot = emailOrPhone => {
     if (!emailOrPhone) {

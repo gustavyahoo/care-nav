@@ -80,9 +80,9 @@ class Confirm extends React.Component {
                 touched.confirmCode && (
                   <div className="error-field">{errors.confirmCode}</div>
                 )}
-              <button className="forgot-resend-link" onClick={this._resend}>
+              <a className="forgot-resend-link" onClick={this._resend}>
                 Resend
-              </button>
+              </a>
               <button
                 className="next-btn"
                 type="submit"
