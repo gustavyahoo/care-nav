@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import avatar from '../avatar.png'
 
 class PatientName extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class PatientName extends React.Component {
         <div>
           <div className="PatientName-content-first-row">
             <div className="PatientName-avatar">
-              <img src="/avatar.png" alt="avatar" />
+              <img src={avatar} alt="avatar" />
             </div>
             <div className="PatientName-personal-info">
               <div className="PatientName-personal-info-age-sex">

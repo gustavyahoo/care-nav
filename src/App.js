@@ -19,6 +19,9 @@ import EditPatientForm from './components/EditPatientForm';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import './app.css';
 import CoreLayout from './components/CoreLayout';
+import Cognito from './components/Cognito';
+import { userPool } from './utils';
+import { Button } from 'antd';
 
 export const Nav = props => (
   <ul>
@@ -75,9 +78,21 @@ export const Nav = props => (
 
 class App extends Component {
   render() {
+    const userId = userPool.getCurrentUser().getUsername();
     return (
       <Router>
         <div>
+          <div>
+            Login Id: {userId}&nbsp;&nbsp;<Button
+              onClick={e => {
+                userPool.getCurrentUser().signOut();
+                this.props.history.push('/login');
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+          <br />
           <Route exact path="/" component={Nav} />
           <Route path="/screen-one" component={SplashScreen} />
           <Route path="/login" component={Login} />
@@ -103,6 +118,7 @@ class App extends Component {
           />
           <Route path="/patient-name" component={PatientName} />
           <Route path="/edit-patient-form" component={EditPatientForm} />
+          <Route path="/cognito" component={Cognito} />
         </div>
       </Router>
     );

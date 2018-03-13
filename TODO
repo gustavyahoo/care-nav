@@ -1,9 +1,15 @@
-[] add storybook
-[] create antd layout
-[] add material-icons-support
-[] integrate jest test suite
-[] Build one page
+[] create a login system with aws-cognito
+    - sign up
+    - login
+    - confirmation code | resend confirmation code
+    - login password
+    - logout
+[] create api gateway endpoint and hook it up with lambda function
+[] connect lambda to dynamodb
+[] verify requests with cognito authenticated tokens
 
 
-Questions ---
-What should be the on hover color for the links? Currently it defaults to blue
+---------- Other approach
+[] create express server with aws lambda
+[] hook it up with api gateway 
+[] authenticate requests with cognito

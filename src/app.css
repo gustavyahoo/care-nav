@@ -101,6 +101,8 @@ div {
   text-align: right;
   color: #c9c3ba;
   text-decoration: none;
+  background: transparent;
+  border: none;
 }
 
 .html-logo {

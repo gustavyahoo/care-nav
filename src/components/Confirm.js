@@ -1,10 +1,31 @@
 import React from 'react';
 import { FullSizeBackground } from './common';
-import { Link } from 'react-router-dom';
 import { Form, Field, Formik } from 'formik';
+import { userPool } from '../utils';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
 class Confirm extends React.Component {
+  _resend = e => {
+    e.preventDefault();
+    const username = this.props.signupUsername;
+    console.log(this.props);
+    if (!username) {
+      this.props.confirmFailure();
+    }
+    const User = new CognitoUser({
+      Username: username,
+      Pool: userPool
+    });
+    User.resendConfirmationCode(function(err, result) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(result);
+    });
+  };
   render() {
+    userPool.getCurrentUser();
     return (
       <FullSizeBackground backgroundColor="#4b395a">
         <Formik
@@ -25,19 +46,43 @@ class Confirm extends React.Component {
             return errors;
           }}
           onSubmit={(values, actions) => {
-            console.log(values);
+            const username = this.props.signupUsername;
+            if (!username) {
+              this.props.history.push('/login');
+            }
+            const User = new CognitoUser({
+              Username: username,
+              Pool: userPool
+            });
+            User.confirmRegistration(
+              values.confirmCode,
+              true,
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                  return;
+                }
+                this.props.confirmSuccess();
+                return;
+              }
+            );
           }}
           render={({ errors, touched, isSubmitting }) => (
             <Form className="confirm-container">
               <h1 className="auth-heading">Confirm</h1>
-              <Field type="text" name="confirmCode" className="auth-input" />
+              <Field
+                type="text"
+                name="confirmCode"
+                className="auth-input"
+                placeholder="CONFIRM CODE"
+              />
               {errors.confirmCode &&
                 touched.confirmCode && (
                   <div className="error-field">{errors.confirmCode}</div>
                 )}
-              <Link to="/resend" className="forgot-resend-link">
+              <button className="forgot-resend-link" onClick={this._resend}>
                 Resend
-              </Link>
+              </button>
               <button
                 className="next-btn"
                 type="submit"
