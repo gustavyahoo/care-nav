@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { userPool } from '../../utils';
+import { withRouter } from 'react-router-dom';
 
 class MobileLeftNav extends React.Component {
   render() {
@@ -12,21 +14,28 @@ class MobileLeftNav extends React.Component {
         </div>
         <ul className="left-menu-items">
           <li>
-            <Link to="my-care-team">My care team</Link>
+            <Link to="/my-care-team">My care team</Link>
           </li>
           <li>
-            <Link to="my-care-library">My care library</Link>
+            <Link to="/my-care-library">My care library</Link>
           </li>
           <li>
-            <Link to="settings">Settings</Link>
+            <Link to="/settings">Settings</Link>
           </li>
         </ul>
         <div className="bottom-left-nav">
-          <Link to="/logout">Logout</Link>
+          <a
+            onClick={e => {
+              userPool.getCurrentUser().signOut();
+              this.props.history.push('/login');
+            }}
+          >
+            Logout
+          </a>
         </div>
       </div>
     );
   }
 }
 
-export default MobileLeftNav;
+export default withRouter(MobileLeftNav);

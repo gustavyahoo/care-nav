@@ -13,3 +13,7 @@
 [] create express server with aws lambda
 [] hook it up with api gateway 
 [] authenticate requests with cognito
+
+
+[] generic errors
+[] routes

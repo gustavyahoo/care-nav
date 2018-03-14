@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullSizeBackground } from './common';
-import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Form, Field, withFormik } from 'formik';
 import Yup from 'yup';
 import { rEmail, rUSPHONE } from '../utils';
@@ -91,6 +91,7 @@ const SignupUser = ({ emailOrPhone, password }) => {
   });
 };
 
+// higher order function for creating form
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
     emailOrPhone: Yup.string()
@@ -127,6 +128,7 @@ const formikEnhancer = withFormik({
   displayName: 'LoginForm'
 });
 
+// display form
 export const InnerForm = ({
   values,
   errors,
@@ -135,15 +137,19 @@ export const InnerForm = ({
   handleBlur,
   handleSubmit,
   isSubmitting,
-  forgot
+  forgot,
+  setErrors
 }) => (
   <Form className="login-container">
     <h1 className="auth-heading">Log in/Registration</h1>
+    {errors.genericError && (
+      <div className="error-field">{errors.genericError}</div>
+    )}
     <Field
       type="text"
       name="emailOrPhone"
       id="emailOrPhone"
-      placeholder="EMAIL/PHONE NUMBER"
+      placeholder="EMAIL/PHONE NUMBER (+15417543010)"
       className="auth-input"
     />
     {errors.emailOrPhone &&
@@ -164,6 +170,7 @@ export const InnerForm = ({
         className="forgot-resend-link"
         onClick={e => {
           e.preventDefault();
+          // setErrors({ genericError: 'Username or password is incorrect' });
           forgot(values.emailOrPhone);
         }}
       >
@@ -180,17 +187,16 @@ export const LoginForm = formikEnhancer(InnerForm);
 
 class Login extends React.Component {
   state = {
-    formVisible: 'LOGIN',
     emailOrPhone: '',
     password: ''
   };
   _confirmUser = (emailOrPhone, password) => {
     this.setState({
-      formVisible: 'CONFIRM',
       emailOrPhone,
       password,
       User: null
     });
+    this.props.history.push('/login/confirm');
   };
   _loginSuccess = user => {
     this.props.history.push('/');
@@ -226,15 +232,14 @@ class Login extends React.Component {
         User.forgotPassword({
           onSuccess: data => {
             this.setState({
-              formVisible: 'FORGOT',
               emailOrPhone,
               password: ''
             });
+            this.props.history.push('/login/forgot');
           },
           onFailure: err => {
             console.log(err);
             this.setState({
-              formVisible: 'LOGIN',
               emailOrPhone: '',
               password: ''
             });
@@ -245,46 +250,53 @@ class Login extends React.Component {
   };
   _failure = () => {
     this.setState({
-      formVisible: 'LOGIN',
       emailOrPhone: '',
       password: ''
     });
+    this.props.history.push('/login');
   };
   render() {
-    const { formVisible } = this.state;
-    if (formVisible === 'LOGIN') {
-      return (
-        <FullSizeBackground backgroundColor="#4b395a">
-          <LoginForm
-            credentials={{ emailOrPhone: '', password: '' }}
-            confirmUser={this._confirmUser}
-            loginSuccess={this._loginSuccess}
-            forgot={this._forgot}
-          />
-        </FullSizeBackground>
-      );
-    } else if (formVisible === 'CONFIRM') {
-      return (
-        <Confirm
-          signupUsername={this.state.emailOrPhone}
-          confirmSuccess={this._confirmSuccess}
-          confirmFailure={this._failure}
-          {...this.props}
+    const { emailOrPhone, password } = this.state;
+    return (
+      <FullSizeBackground backgroundColor="#4b395a">
+        <Route
+          exact
+          path={`${this.props.match.url}`}
+          render={props => (
+            <LoginForm
+              credentials={{ emailOrPhone, password }}
+              confirmUser={this._confirmUser}
+              loginSuccess={this._loginSuccess}
+              forgot={this._forgot}
+              {...props}
+            />
+          )}
         />
-      );
-    } else if (formVisible === 'FORGOT') {
-      return (
-        <ForgotPassword
-          signupUsername={this.state.emailOrPhone}
-          confirmSuccess={this._confirmSuccessOnPasswordChange}
-          confirmFailure={this._failure}
-          {...this.props}
-          User={this.state.User}
+        <Route
+          path={`${this.props.match.url}/confirm`}
+          render={props => (
+            <Confirm
+              signupUsername={this.state.emailOrPhone}
+              confirmSuccess={this._confirmSuccess}
+              confirmFailure={this._failure}
+              {...props}
+            />
+          )}
         />
-      );
-    } else {
-      return null;
-    }
+        <Route
+          path={`${this.props.match.url}/forgot`}
+          render={props => (
+            <ForgotPassword
+              signupUsername={this.state.emailOrPhone}
+              confirmSuccess={this._confirmSuccessOnPasswordChange}
+              confirmFailure={this._failure}
+              {...props}
+              User={this.state.User}
+            />
+          )}
+        />
+      </FullSizeBackground>
+    );
   }
 }
 

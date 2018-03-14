@@ -7225,7 +7225,7 @@ react-lazy-load@^3.0.12:
     lodash.throttle "^4.0.0"
     prop-types "^15.5.8"
 
-react-media@^1.6.1:
+react-media@^1.6.1, react-media@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-media/-/react-media-1.8.0.tgz#b86d6d62313f95d53af7d06e23d4f49adfb131d3"
   dependencies:

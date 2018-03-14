@@ -2,7 +2,6 @@ import React from 'react';
 import { FullSizeBackground } from './common';
 import { Form, Field, Formik } from 'formik';
 import { userPool } from '../utils';
-import { CognitoUser } from 'amazon-cognito-identity-js';
 
 class ForgotPassword extends React.Component {
   render() {

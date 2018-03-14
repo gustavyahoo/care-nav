@@ -8,6 +8,6 @@ export const FullSizeBackground = withWindowSize(
     background-color: ${props => props.backgroundColor};
     box-sizing: border-box;
     display: block;
-    overflow: auto;
+    overflow: hidden;
   `
 );

@@ -10,6 +10,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-fns": "^1.4.0",
+    "react-media": "^1.8.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
@@ -39,12 +40,13 @@
       "!src/registerServiceWorker.js"
     ]
   },
-  "homepage": "http://dev.restadviser.com/dev2/prog85/",
+  "homepage": "",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-storybook": "build-storybook -s public",
-    "test": "react-scripts test --env=jsdom --json --outputFile=src/.jest-test-results.json || true",
+    "test":
+      "react-scripts test --env=jsdom --json --outputFile=src/.jest-test-results.json || true",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "prebuild:storybook": "npm run test",

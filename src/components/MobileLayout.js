@@ -1,19 +1,9 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
-import { withWindowSize } from 'react-fns';
-import MobileLeftNav from './MobileLeftNav';
-import MobileRightNav from './MobileRightNav';
+import MobileLeftNav from './mobile/MobileLeftNav';
+import MobileRightNav from './mobile/MobileRightNav';
 import InboxAndPatientTabs from './InboxAndPatientTabs';
 const { Header, Sider, Content } = Layout;
-
-const breakpoints = {
-  xs: 480,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-  xxl: 1600
-};
 
 class CoreLayout extends React.Component {
   state = {
@@ -21,35 +11,15 @@ class CoreLayout extends React.Component {
     rightCollapsed: true
   };
   toggleLeft = () => {
-    this.setState(
-      {
-        leftCollapsed: !this.state.leftCollapsed
-      },
-      () => {
-        if (this.state.leftCollapsed) {
-          this.forceUpdate();
-        }
-      }
-    );
+    this.setState({
+      leftCollapsed: !this.state.leftCollapsed
+    });
   };
   toggleRight = () => {
-    this.setState(
-      {
-        rightCollapsed: !this.state.rightCollapsed
-      },
-      () => {
-        if (this.state.rightCollapsed) {
-          this.forceUpdate();
-        }
-      }
-    );
-  };
-  componentWillReceiveProps(newProps) {
     this.setState({
-      leftCollapsed: newProps.width < breakpoints.md,
-      rightCollapsed: newProps.width < breakpoints.md
+      rightCollapsed: !this.state.rightCollapsed
     });
-  }
+  };
   render() {
     return (
       <Layout>
@@ -105,4 +75,4 @@ class CoreLayout extends React.Component {
   }
 }
 
-export default withWindowSize(CoreLayout);
+export default CoreLayout;
