@@ -28,7 +28,7 @@ class NewPatientForm extends React.Component {
           <Content className="main-content">
             <div className="new-msg-container">
               <div className="new-msg-top-row">
-                <Link to="/three-column-layout">
+                <Link to="/mobile/patients">
                   <Icon type="left" />
                 </Link>
                 <h3 className="new-msg-label">New Patient form</h3>{' '}

@@ -102,7 +102,13 @@ const formikEnhancer = withFormik({
       ),
     password: Yup.string()
       .min(8, 'Password should be atleast 8 character long')
-      .required('Password is required.')
+      .required('Password is required.'),
+    fullname: Yup.string()
+      .min(4, 'Full name should be at least 4 characters long')
+      .required(),
+    confirm: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords not same')
+      .required('Password confirm is required')
   }),
   mapPropsToValues: ({ credentials }) => ({
     ...credentials
@@ -112,6 +118,8 @@ const formikEnhancer = withFormik({
     { props, setSubmitting, setErrors, callback }
   ) => {
     setSubmitting(false);
+    console.log(payload);
+    return;
     try {
       const user = await loginUser(payload.emailOrPhone, payload.password);
       props.loginSuccess(user);
@@ -122,8 +130,6 @@ const formikEnhancer = withFormik({
         props.confirmUser(payload.emailOrPhone, payload.password);
       } else if (err.code === 'UserNotConfirmedException') {
         props.confirmUser(payload.emailOrPhone, payload.password);
-      } else if (err.code === 'NotAuthorizedException') {
-        setErrors({ genericError: 'Sorry! Your account is blocked.' });
       }
     }
   },
@@ -143,7 +149,7 @@ export const InnerForm = ({
   setErrors
 }) => (
   <Form className="login-container">
-    <h1 className="auth-heading">Log in</h1>
+    <h1 className="auth-heading">Sign Up</h1>
     {errors.genericError && (
       <div className="error-field">{errors.genericError}</div>
     )}
@@ -159,6 +165,15 @@ export const InnerForm = ({
         <div className="error-field">{errors.emailOrPhone}</div>
       )}
     <Field
+      type="text"
+      name="fullname"
+      id="fullname"
+      placeholder="FULL NAME"
+      className="auth-input"
+    />
+    {errors.fullname &&
+      touched.fullname && <div className="error-field">{errors.fullname}</div>}
+    <Field
       id="password"
       type="password"
       name="password"
@@ -167,30 +182,29 @@ export const InnerForm = ({
     />
     {errors.password &&
       touched.password && <div className="error-field">{errors.password}</div>}
-    <div className="forgot-resend-link-ctn">
-      <a
-        className="forgot-resend-link"
-        onClick={e => {
-          e.preventDefault();
-          // setErrors({ genericError: 'Username or password is incorrect' });
-          forgot(values.emailOrPhone);
-        }}
-      >
-        Forgot...
-      </a>
-    </div>
+    <Field
+      id="confirm"
+      type="password"
+      name="confirm"
+      placeholder="CONFIRM PASSWORD"
+      className="auth-input"
+    />
+    {errors.confirm &&
+      touched.confirm && <div className="error-field">{errors.confirm}</div>}
     <button className="next-btn" type="submit" disabled={isSubmitting}>
-      NEXT
+      SIGN UP
     </button>
   </Form>
 );
 
 export const LoginForm = formikEnhancer(InnerForm);
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   state = {
     emailOrPhone: '',
-    password: ''
+    password: '',
+    confirm: '',
+    fullname: ''
   };
   _confirmUser = (emailOrPhone, password) => {
     this.setState({
@@ -217,39 +231,6 @@ class Login extends React.Component {
       this.props.history.push('/');
     }
   };
-  _forgot = emailOrPhone => {
-    if (!emailOrPhone) {
-      alert('please enter email or phone number');
-      return;
-    }
-    const User = new CognitoUser({
-      Username: emailOrPhone,
-      Pool: userPool
-    });
-    this.setState(
-      {
-        User
-      },
-      () => {
-        User.forgotPassword({
-          onSuccess: data => {
-            this.setState({
-              emailOrPhone,
-              password: ''
-            });
-            this.props.history.push('/login/forgot');
-          },
-          onFailure: err => {
-            console.log(err);
-            this.setState({
-              emailOrPhone: '',
-              password: ''
-            });
-          }
-        });
-      }
-    );
-  };
   _failure = () => {
     this.setState({
       emailOrPhone: '',
@@ -258,7 +239,7 @@ class Login extends React.Component {
     this.props.history.push('/login');
   };
   render() {
-    const { emailOrPhone, password } = this.state;
+    const { emailOrPhone, password, fullname, confirm } = this.state;
     return (
       <FullSizeBackground backgroundColor="#4b395a">
         <Route
@@ -266,10 +247,9 @@ class Login extends React.Component {
           path={`${this.props.match.url}`}
           render={props => (
             <LoginForm
-              credentials={{ emailOrPhone, password }}
+              credentials={{ emailOrPhone, password, confirm, fullname }}
               confirmUser={this._confirmUser}
               loginSuccess={this._loginSuccess}
-              forgot={this._forgot}
               {...props}
             />
           )}
@@ -285,21 +265,9 @@ class Login extends React.Component {
             />
           )}
         />
-        <Route
-          path={`${this.props.match.url}/forgot`}
-          render={props => (
-            <ForgotPassword
-              signupUsername={this.state.emailOrPhone}
-              confirmSuccess={this._confirmSuccessOnPasswordChange}
-              confirmFailure={this._failure}
-              {...props}
-              User={this.state.User}
-            />
-          )}
-        />
       </FullSizeBackground>
     );
   }
 }
 
-export default Login;
+export default SignUp;

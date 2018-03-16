@@ -1,14 +1,14 @@
 import React from 'react';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
-import avatar from '../avatar.png'
+import avatar from '../../avatar.png';
 
 class PatientName extends React.Component {
   render() {
     return (
       <div className="new-msg-container">
         <div className="new-msg-top-row">
-          <Link to="/three-column-layout">
+          <Link to="/mobile/patients">
             <Icon type="left" />
           </Link>
           <h3 className="new-msg-label">Patient Name</h3>

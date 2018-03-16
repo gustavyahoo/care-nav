@@ -427,12 +427,13 @@ div {
   width: 100%;
   overflow-y: scroll;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .action-btn-inbox-tab {
   position: fixed;
-  bottom: 45px;
-  right: 15px;
+  bottom: 50px;
+  right: 10px;
   font-size: 2.5rem;
 }
 
@@ -508,6 +509,17 @@ div {
   bottom: 0;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  font-weight: 700;
+  padding-bottom: 10px;
+  background-color: #fff;
+}
+.edit-msg-text {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
   width: 100%;
   align-items: center;
   font-weight: 700;
@@ -596,57 +608,95 @@ div {
   margin-top: 25px;
 }
 
-@media (min-width: 1281px) {
-  .action-btn-inbox-tab {
-    bottom: 0px;
-    right: 30px;
-  }
+.MemberProfile-content-first-row {
+  display: flex;
+  margin-top: 15px;
 }
 
-/* 
-  ##Device = Laptops, Desktops
-  ##Screen = B/w 1025px to 1280px
-*/
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .action-btn-inbox-tab {
-    bottom: 0px;
-    right: 30px;
-  }
+.MemberProfile-avatar {
+  flex: 1;
 }
 
-/* 
-  ##Device = Tablets, Ipads (portrait)
-  ##Screen = B/w 768px to 1024px
-*/
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  .action-btn-inbox-tab {
-    bottom: 0px;
-    right: 30px;
-  }
+.MemberProfile-avatar img {
+  width: 100%;
 }
 
-/* 
-  ##Device = Tablets, Ipads (landscape)
-  ##Screen = B/w 768px to 1024px
-*/
-
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+.MemberProfile-personal-info {
+  flex: 2;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding-left: 10px;
 }
 
-/* 
-  ##Device = Low Resolution Tablets, Mobiles (Landscape)
-  ##Screen = B/w 481px to 767px
-*/
-
-@media (min-width: 481px) and (max-width: 767px) {
+.MemberProfile-content-second-row {
+  margin-top: 15px;
 }
 
-/* 
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
+.bold-text-center {
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-align: center;
+}
 
-@media (min-width: 320px) and (max-width: 480px) {
+.bold-text {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.MemberProfile-content-second-row .tags {
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.MemberProfile-personal-info {
+  flex: 2;
+}
+.MemberProfile-personal-info-titles {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.main-content-mobile {
+  background: #fff;
+}
+
+.inbox-patient-content {
+}
+
+.inbox-patient-footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+}
+
+.inbox-patient-footer a {
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-weight: 700;
+  color: #6c6c6c;
+}
+
+.active-tab {
+  background-color: #6c6c6c;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.MyCareTeam-team-container {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 45px;
+}
+
+.MyCareTeam-team-row {
+  display: flex;
+  justify-content: space-between;
 }

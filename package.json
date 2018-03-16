@@ -6,6 +6,7 @@
     "amazon-cognito-identity-js": "^2.0.1",
     "antd": "^3.2.2",
     "aws-sdk": "^2.207.0",
+    "axios": "^0.18.0",
     "formik": "^0.11.11",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -45,8 +46,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-storybook": "build-storybook -s public",
-    "test":
-      "react-scripts test --env=jsdom --json --outputFile=src/.jest-test-results.json || true",
+    "test": "react-scripts test --env=jsdom --json --outputFile=src/.jest-test-results.json || true",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "prebuild:storybook": "npm run test",
