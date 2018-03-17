@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullSizeBackground } from './common';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Form, Field, withFormik } from 'formik';
 import Yup from 'yup';
 import { rEmail, rUSPHONE } from '../utils';
@@ -21,7 +21,8 @@ Yup.addMethod(Yup.string, 'emailOrPhone', function(regex, message) {
     // test: value => regex.email.test(value) || regex.phone.test(value)
     test: value =>
       value &&
-      (regex.email.test(value) || !isNaN(value.substr(1, value.length)))
+      (regex.email.test(value) ||
+        (!isNaN(value.substr(1, value.length)) && value.length === 12))
   });
 });
 
@@ -43,54 +44,6 @@ const loginUser = (emailOrPhone, password) => {
   });
 };
 
-// congito signup
-const SignupUser = ({ emailOrPhone, password }) => {
-  let attributeList = [];
-  let dataUsername = null;
-
-  // const dataName = {
-  //   Name: 'name',
-  //   Value: 'Test user'
-  // };
-  if (!isNaN(emailOrPhone.substr(1, emailOrPhone.length))) {
-    dataUsername = {
-      Name: 'phone_number',
-      Value: emailOrPhone
-    };
-  } else {
-    dataUsername = {
-      Name: 'email',
-      Value: emailOrPhone
-    };
-  }
-  const attributeUsername = new CognitoUserAttribute(dataUsername);
-  attributeList.push(attributeUsername);
-  // attributeList.push(dataName);
-
-  return new Promise((resolve, reject) => {
-    userPool.signUp(
-      emailOrPhone,
-      password,
-      attributeList,
-      null,
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          if (err.code === 'UsernameExistsException') {
-            alert('User already exists');
-          }
-          if (err.code === 'InvalidPasswordException') {
-            alert('Password is not strong enough');
-          }
-          return;
-        }
-        const cognitoUser = result.user;
-        resolve(cognitoUser.getUsername());
-      }
-    );
-  });
-};
-
 // higher order function for creating form
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
@@ -98,7 +51,7 @@ const formikEnhancer = withFormik({
       .required('Email or phone is required.')
       .emailOrPhone(
         { email: rEmail, phone: rUSPHONE },
-        'Valid email or US phone is required'
+        'Valid email or US phone is required of format (+15417543010)'
       ),
     password: Yup.string()
       .min(8, 'Password should be atleast 8 character long')
@@ -118,8 +71,9 @@ const formikEnhancer = withFormik({
     } catch (err) {
       console.log(err);
       if (err.code === 'UserNotFoundException') {
-        await SignupUser(payload);
-        props.confirmUser(payload.emailOrPhone, payload.password);
+        // await SignupUser(payload);
+        // props.confirmUser(payload.emailOrPhone, payload.password);
+        setErrors({ genericError: 'No account with this username was found' });
       } else if (err.code === 'UserNotConfirmedException') {
         props.confirmUser(payload.emailOrPhone, payload.password);
       } else if (err.code === 'NotAuthorizedException') {
@@ -168,11 +122,17 @@ export const InnerForm = ({
     {errors.password &&
       touched.password && <div className="error-field">{errors.password}</div>}
     <div className="forgot-resend-link-ctn">
+      <Link to="/sign-up" className="sign-up-link">
+        Sign Up
+      </Link>
       <a
         className="forgot-resend-link"
         onClick={e => {
           e.preventDefault();
-          // setErrors({ genericError: 'Username or password is incorrect' });
+          if (!values.emailOrPhone || errors.emailOrPhone) {
+            setErrors({ genericError: 'Please enter valid username' });
+            return;
+          }
           forgot(values.emailOrPhone);
         }}
       >
@@ -180,7 +140,7 @@ export const InnerForm = ({
       </a>
     </div>
     <button className="next-btn" type="submit" disabled={isSubmitting}>
-      NEXT
+      LOGIN
     </button>
   </Form>
 );
@@ -193,12 +153,22 @@ class Login extends React.Component {
     password: ''
   };
   _confirmUser = (emailOrPhone, password) => {
-    this.setState({
-      emailOrPhone,
-      password,
-      User: null
+    const User = new CognitoUser({
+      Username: emailOrPhone,
+      Pool: userPool
     });
-    this.props.history.push('/login/confirm');
+    User.resendConfirmationCode((err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      this.setState({
+        emailOrPhone,
+        password,
+        User: null
+      });
+      this.props.history.push('/login/confirm');
+    });
   };
   _loginSuccess = user => {
     this.props.history.push('/');
@@ -218,10 +188,6 @@ class Login extends React.Component {
     }
   };
   _forgot = emailOrPhone => {
-    if (!emailOrPhone) {
-      alert('please enter email or phone number');
-      return;
-    }
     const User = new CognitoUser({
       Username: emailOrPhone,
       Pool: userPool

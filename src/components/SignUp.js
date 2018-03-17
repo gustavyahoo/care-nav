@@ -1,6 +1,6 @@
 import React from 'react';
 import { FullSizeBackground } from './common';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Form, Field, withFormik } from 'formik';
 import Yup from 'yup';
 import { rEmail, rUSPHONE } from '../utils';
@@ -44,14 +44,14 @@ const loginUser = (emailOrPhone, password) => {
 };
 
 // congito signup
-const SignupUser = ({ emailOrPhone, password }) => {
+const SignupUser = ({ emailOrPhone, password, fullname }) => {
   let attributeList = [];
   let dataUsername = null;
 
-  // const dataName = {
-  //   Name: 'name',
-  //   Value: 'Test user'
-  // };
+  const dataName = {
+    Name: 'name',
+    Value: fullname
+  };
   if (!isNaN(emailOrPhone.substr(1, emailOrPhone.length))) {
     dataUsername = {
       Name: 'phone_number',
@@ -65,7 +65,7 @@ const SignupUser = ({ emailOrPhone, password }) => {
   }
   const attributeUsername = new CognitoUserAttribute(dataUsername);
   attributeList.push(attributeUsername);
-  // attributeList.push(dataName);
+  attributeList.push(dataName);
 
   return new Promise((resolve, reject) => {
     userPool.signUp(
@@ -75,17 +75,11 @@ const SignupUser = ({ emailOrPhone, password }) => {
       null,
       (err, result) => {
         if (err) {
-          console.log(err);
-          if (err.code === 'UsernameExistsException') {
-            alert('User already exists');
-          }
-          if (err.code === 'InvalidPasswordException') {
-            alert('Password is not strong enough');
-          }
-          return;
+          reject(err);
+        } else {
+          const cognitoUser = result.user;
+          resolve(cognitoUser.getUsername());
         }
-        const cognitoUser = result.user;
-        resolve(cognitoUser.getUsername());
       }
     );
   });
@@ -117,19 +111,15 @@ const formikEnhancer = withFormik({
     payload,
     { props, setSubmitting, setErrors, callback }
   ) => {
-    setSubmitting(false);
-    console.log(payload);
-    return;
     try {
-      const user = await loginUser(payload.emailOrPhone, payload.password);
-      props.loginSuccess(user);
+      await SignupUser(payload);
+      props.confirmUser(payload.emailOrPhone, payload.password);
     } catch (err) {
       console.log(err);
-      if (err.code === 'UserNotFoundException') {
-        await SignupUser(payload);
-        props.confirmUser(payload.emailOrPhone, payload.password);
-      } else if (err.code === 'UserNotConfirmedException') {
-        props.confirmUser(payload.emailOrPhone, payload.password);
+      if (err.code === 'UsernameExistsException') {
+        setErrors({
+          genericError: 'Username already exists, please try to login'
+        });
       }
     }
   },
@@ -191,6 +181,9 @@ export const InnerForm = ({
     />
     {errors.confirm &&
       touched.confirm && <div className="error-field">{errors.confirm}</div>}
+    <Link to="/login" className="sign-up-link">
+      Back to login
+    </Link>
     <button className="next-btn" type="submit" disabled={isSubmitting}>
       SIGN UP
     </button>
@@ -207,12 +200,16 @@ class SignUp extends React.Component {
     fullname: ''
   };
   _confirmUser = (emailOrPhone, password) => {
-    this.setState({
-      emailOrPhone,
-      password,
-      User: null
-    });
-    this.props.history.push('/login/confirm');
+    this.setState(
+      {
+        emailOrPhone,
+        password,
+        User: null
+      },
+      () => {
+        this.props.history.push('/sign-up/confirm');
+      }
+    );
   };
   _loginSuccess = user => {
     this.props.history.push('/');
@@ -220,13 +217,6 @@ class SignUp extends React.Component {
   _confirmSuccess = async () => {
     const { emailOrPhone, password } = this.state;
     const user = await loginUser(emailOrPhone, password);
-    if (user) {
-      this.props.history.push('/');
-    }
-  };
-  _confirmSuccessOnPasswordChange = async newPassword => {
-    const { emailOrPhone } = this.state;
-    const user = await loginUser(emailOrPhone, newPassword);
     if (user) {
       this.props.history.push('/');
     }

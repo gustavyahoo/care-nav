@@ -8,7 +8,6 @@ class Confirm extends React.Component {
   _resend = e => {
     e.preventDefault();
     const username = this.props.signupUsername;
-    console.log(this.props);
     if (!username) {
       this.props.confirmFailure();
     }
@@ -88,7 +87,7 @@ class Confirm extends React.Component {
                 type="submit"
                 disabled={isSubmitting}
               >
-                NEXT
+                CONFIRM
               </button>
             </Form>
           )}

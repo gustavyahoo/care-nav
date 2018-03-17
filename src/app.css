@@ -74,6 +74,12 @@ div {
   outline: none;
   margin-top: 50px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.next-btn:disabled,
+.next-btn[disabled] {
+  opacity: 0.6;
 }
 
 .auth-input {
@@ -94,7 +100,15 @@ div {
 }
 
 .forgot-resend-link-ctn {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sign-up-link {
+  color: #c9c3ba;
+  text-decoration: none;
+  background: transparent;
+  border: none;
 }
 
 .forgot-resend-link {
