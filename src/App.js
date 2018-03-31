@@ -4,6 +4,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Confirm from './components/Confirm';
 import Mobile from './components/mobile';
+import Tablet from './components/tablet';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { withWindowSize } from 'react-fns';
 
@@ -34,16 +35,16 @@ class App extends Component {
       return <SplashScreen />;
     }
 
-    if (user && this.props.height > breakpoints.md) {
+    if (user && this.props.width > breakpoints.md) {
       return (
         <Switch>
           <Route exact path="/" render={props => <Redirect to="/pc" />} />
-          <Route path="/pc" component={Mobile} />
+          <Route path="/pc" component={Tablet} />
         </Switch>
       );
     }
 
-    if (user && this.props.height <= breakpoints.md) {
+    if (user && this.props.width <= breakpoints.md) {
       return (
         <Switch>
           <Route exact path="/" render={props => <Redirect to="/mobile" />} />
